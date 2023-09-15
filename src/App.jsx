@@ -14,15 +14,16 @@ function App() {
     ])
   }
   
-  // useEffect(()=>{
-  //   setTimeout(()=>{
-  //     if (temporaryThoughts) {
-  //       setTemporaryThoughts(prevTemporaryThoughts=>{
-  //         prevTemporaryThoughts.pop();
-  //     })
-  //     }
-  //   }, 5000)
-  // },[temporaryThoughts])
+  useEffect(()=>{
+    setTimeout(()=>{
+      setThoughts(prevThoughts => {
+        if(prevThoughts && prevThoughts.length > 0) {
+          return prevThoughts.slice(0,-1)
+        }
+        return prevThoughts
+      })
+    }, 5000)
+  },[thoughts])
   
 
   return (
