@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Thoughts } from './components/Thoughts';
 
 function App() {
   const [thought, setThought] = useState("");
-  const [temporaryThoughts, setTemporaryThoughts] = useState([]);
+  const [temporaryThoughts, setTemporaryThoughts] = useState(null);
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      if (temporaryThoughts) {
+        setTemporaryThoughts(prevTemporaryThoughts=>{
+          prevTemporaryThoughts.pop();
+      })
+      }
+    }, 5000)
+  },[temporaryThoughts])
   
 
   function handleInputChange({target}) {
@@ -12,7 +22,7 @@ function App() {
   function handleSubmit(event) {
     event.preventDefault()
     setTemporaryThoughts(prevTemporaryThoughts => [
-       ...prevTemporaryThoughts,
+       prevTemporaryThoughts,
        thought
     ])
   }
@@ -25,7 +35,7 @@ function App() {
     />
      {temporaryThoughts && temporaryThoughts.map(tempThought =>
        (
-        <p key={temporaryThoughts.indexOf(tempThought)}>{tempThought}</p>
+        <p>{tempThought}</p>
       )
     )}
 
