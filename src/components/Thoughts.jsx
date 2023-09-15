@@ -14,6 +14,7 @@ export function Thoughts(props) {
       text: text,
       expiration: getTimer()
     })
+    setText('');
   }
   return (
     <>
