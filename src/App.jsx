@@ -1,49 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { Thoughts } from './components/Thoughts';
+import { getNewId, getTimer } from './helperFunctions';
 
 function App() {
-  const [thought, setThought] = useState("");
-  const [temporaryThoughts, setTemporaryThoughts] = useState(null);
+  const [thoughts, setThoughts] = useState([
 
-  useEffect(()=>{
-    setTimeout(()=>{
-      if (temporaryThoughts) {
-        setTemporaryThoughts(prevTemporaryThoughts=>{
-          prevTemporaryThoughts.pop();
-      })
-      }
-    }, 5000)
-  },[temporaryThoughts])
-  
+  ]);
 
-  function handleInputChange({target}) {
-      setThought(target.value)
-  }
-  function handleSubmit(event) {
-    event.preventDefault()
-    setTemporaryThoughts(prevTemporaryThoughts => [
-       prevTemporaryThoughts,
-       thought
+  function addThought (thought) {
+    setThoughts(prevThoughts => [
+      ...prevThoughts,
+      thought
     ])
   }
+  
+  // useEffect(()=>{
+  //   setTimeout(()=>{
+  //     if (temporaryThoughts) {
+  //       setTemporaryThoughts(prevTemporaryThoughts=>{
+  //         prevTemporaryThoughts.pop();
+  //     })
+  //     }
+  //   }, 5000)
+  // },[temporaryThoughts])
+  
+
   return (
   <>
     <h1>Passing Thoughts</h1>
-    <Thoughts 
-    handleInputChange={handleInputChange} 
-    handleSubmit={handleSubmit}
-    />
-     {temporaryThoughts && temporaryThoughts.map(tempThought =>
-       (
-        <p>{tempThought}</p>
-      )
-    )}
-
+    <Thoughts thoughts={thoughts} addThought={addThought}/>
+        {Array.isArray(thoughts) && thoughts.map(thought =>
+          (
+            <p key={thought.id}>{thought.text}</p>
+          )
+        )}
   </>
-   
   )
-
-  
 }
 
 export default App
