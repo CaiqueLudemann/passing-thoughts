@@ -24,6 +24,8 @@ function App() {
       })
     }, 5000)
   },[thoughts])
+
+  
   
 
   return (

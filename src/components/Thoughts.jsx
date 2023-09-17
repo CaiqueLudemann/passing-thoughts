@@ -3,6 +3,7 @@ import { getNewId, getTimer } from "../helperFunctions";
 
 export function Thoughts(props) {
   const [text, setText] = useState('')
+
   function handleInputChange({target}){
     setText(target.value)
   };
@@ -16,10 +17,11 @@ export function Thoughts(props) {
     })
     setText('');
   }
+
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <input type="text" value={text} onChange={handleInputChange}
+        <input id='inputText' type="text" value={text} onChange={handleInputChange}
         />
         <input type="submit" />
       </form>
